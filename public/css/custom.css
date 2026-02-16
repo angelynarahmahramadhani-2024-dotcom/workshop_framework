@@ -1,0 +1,113 @@
+/*
+ * Custom CSS Override
+ * Tambahkan custom style disini untuk override Purple Admin template
+ */
+
+/* Card Image Absolute untuk Dashboard */
+.card-img-holder {
+    position: relative;
+}
+
+.card-img-absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    opacity: 0.3;
+}
+
+/* Dashboard Cards */
+.card.bg-gradient-primary,
+.card.bg-gradient-info,
+.card.bg-gradient-success,
+.card.bg-gradient-danger {
+    border: none;
+    border-radius: 10px;
+}
+
+.card.bg-gradient-primary .card-body,
+.card.bg-gradient-info .card-body,
+.card.bg-gradient-success .card-body,
+.card.bg-gradient-danger .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* Quick Action Buttons */
+.btn-block {
+    display: block;
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.btn-block i {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Grid Margin */
+.grid-margin {
+    margin-bottom: 1.5rem;
+}
+
+/* Stretch Card */
+.stretch-card {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+}
+
+/* Auth Page Social Buttons */
+.btn-facebook {
+    background: #3b5998;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-facebook:hover {
+    background: #344e86;
+    color: #ffffff;
+}
+
+.btn-google {
+    background: #dc4a38;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-google:hover {
+    background: #c74333;
+    color: #ffffff;
+}
+
+.btn-twitter {
+    background: #1da1f2;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-twitter:hover {
+    background: #1a91da;
+    color: #ffffff;
+}
+
+/* Auth Form Button */
+.auth-form-btn {
+    height: 50px;
+    line-height: 1.5;
+}
+
+/* Font Weight */
+.font-weight-medium {
+    font-weight: 500;
+}
+
+.font-weight-light {
+    font-weight: 300;
+}
