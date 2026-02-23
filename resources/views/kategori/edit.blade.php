@@ -2,6 +2,14 @@
 
 @section('title', 'Edit Kategori')
 
+@section('page-title', 'Edit Kategori')
+@section('page-icon', 'mdi-tag-text-outline')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('kategori.index') }}">Kategori</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-6 grid-margin stretch-card">

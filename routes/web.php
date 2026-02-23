@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\PdfController;
 
 // Redirect ke login jika belum login
 Route::get('/', function () {
@@ -10,6 +13,15 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+// Google OAuth Routes
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+// OTP Routes
+Route::get('/otp/verify', [OtpController::class, 'showVerifyForm'])->name('otp.verify');
+Route::post('/otp/verify', [OtpController::class, 'verify']);
+Route::get('/otp/resend', [OtpController::class, 'resend'])->name('otp.resend');
 
 // Semua route di bawah ini butuh login
 Route::middleware(['auth'])->group(function () {
@@ -34,4 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
     Route::put('/buku/{id}', [BukuController::class, 'update'])->name('buku.update');
     Route::delete('/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
+
+    // PDF Routes
+    Route::get('/pdf/sertifikat', [PdfController::class, 'sertifikat'])->name('pdf.sertifikat');
+    Route::get('/pdf/undangan', [PdfController::class, 'undangan'])->name('pdf.undangan');
 });

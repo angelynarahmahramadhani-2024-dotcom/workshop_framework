@@ -2,6 +2,14 @@
 
 @section('title', 'Edit Buku')
 
+@section('page-title', 'Edit Buku')
+@section('page-icon', 'mdi-book-edit')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('buku.index') }}">Buku</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-8 grid-margin stretch-card">

@@ -41,6 +41,15 @@
                 </button>
             </div>
             
+            <div class="mb-2 mt-3">
+                <div class="text-center mb-3">
+                    <span class="text-muted">atau login dengan</span>
+                </div>
+                <a href="{{ route('auth.google') }}" class="btn btn-block btn-outline-danger btn-lg font-weight-medium">
+                    <i class="mdi mdi-google me-2"></i> Google
+                </a>
+            </div>
+            
             <div class="my-2 d-flex justify-content-between align-items-center">
                 <div class="form-check">
                     <label class="form-check-label text-muted">

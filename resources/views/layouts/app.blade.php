@@ -1,17 +1,3 @@
-{{--
-    Layout App - Purple Admin Template
-    
-    Struktur Layout Modular sesuai Modul:
-    1. Header (DOCTYPE, meta, title)
-    2. Style Global (CSS untuk semua halaman)
-    3. Style Page (CSS khusus halaman - via @stack)
-    4. Navbar
-    5. Sidebar
-    6. Content (@yield)
-    7. Footer
-    8. Javascript Global (JS untuk semua halaman)
-    9. Javascript Page (JS khusus halaman - via @stack)
---}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -48,6 +34,22 @@
                             {{ session('error') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                    @endif
+                    
+                    {{-- Breadcrumb --}}
+                    @hasSection('breadcrumb')
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi @yield('page-icon', 'mdi-home')"></i>
+                            </span> @yield('page-title', 'Dashboard')
+                        </h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                @yield('breadcrumb')
+                            </ol>
+                        </nav>
+                    </div>
                     @endif
                     
                     {{-- 6. Content --}}
