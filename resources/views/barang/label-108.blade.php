@@ -6,7 +6,7 @@
 <style>
 @page {
     size: A4 portrait;
-    margin: 10mm 5mm;
+    margin: 4mm 5mm;
 }
 
 body {
@@ -24,19 +24,20 @@ body {
     display: table;
     width: 100%;
     table-layout: fixed;
-    margin: 0;
+    margin: 0 0 2mm 0;
     padding: 0;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 2mm 0;
 }
 
 .label {
     display: table-cell;
     width: 38mm;
     height: 18mm;
-    border: 1px solid #999;
+    border: none;
     text-align: center;
-    vertical-align: middle;
-    padding: 1mm;
+    vertical-align: top;
+    padding: 0.15cm;
     margin: 0;
     position: relative;
     box-sizing: border-box;
@@ -49,7 +50,7 @@ body {
 
 .item-name {
     display: block;
-    font-size: 6pt;
+    font-size: 10pt;
     font-weight: normal;
     margin-bottom: 0.5mm;
     color: #333;
@@ -57,7 +58,7 @@ body {
 
 .price-line {
     display: block;
-    font-size: 7pt;
+    font-size: 10pt;
 }
 
 .currency {
@@ -67,26 +68,6 @@ body {
 
 .price {
     font-weight: bold;
-}
-
-/* X mark for used labels */
-.marked::before,
-.marked::after {
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 0.8px;
-    background: #888;
-    top: 50%;
-    left: 50%;
-}
-
-.marked::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.marked::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
 }
 </style>
 </head>
