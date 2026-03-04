@@ -36,8 +36,7 @@ body {
     height: 18mm;
     border: none;
     text-align: center;
-    vertical-align: top;
-    padding: 0.15cm;
+    vertical-align: middle;
     margin: 0;
     position: relative;
     box-sizing: border-box;

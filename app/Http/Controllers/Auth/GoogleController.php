@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class GoogleController extends Controller
 {
     /**
-     * Redirect ke Google OAuth
+     * Redirect ke Google OAuth, socialite :librari untuk login yang menggunakan akun pihak ketiga seperti google fb
      */
     public function redirectToGoogle()
     {
