@@ -18,7 +18,7 @@
                 <h4 class="card-title">Tambah Buku</h4>
                 <p class="card-description">Masukkan data buku baru</p>
                 
-                <form action="{{ route('buku.store') }}" method="POST">
+                <form id="formBuku" action="{{ route('buku.store') }}" method="POST">
                     @csrf
                     
                     <div class="form-group">
@@ -66,18 +66,49 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary me-2">
-                            <i class="mdi mdi-content-save"></i> Simpan
-                        </button>
-                        <a href="{{ route('buku.index') }}" class="btn btn-light">
-                            <i class="mdi mdi-arrow-left"></i> Kembali
-                        </a>
-                    </div>
                 </form>
+                
+                <div class="mt-4">
+                    <button type="button" id="btnSubmitBuku" class="btn btn-primary me-2 btn-spinner">
+                        <span class="spinner-border d-none" role="status" aria-hidden="true"></span>
+                        <i class="mdi mdi-content-save"></i> Simpan
+                    </button>
+                    <a href="{{ route('buku.index') }}" class="btn btn-light">
+                        <i class="mdi mdi-arrow-left"></i> Kembali
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $('#btnSubmitBuku').on('click', function(e) {
+        e.preventDefault();
+        
+        const form = $('#formBuku')[0];
+        const btn = $(this);
+        const spinner = btn.find('.spinner-border');
+        const icon = btn.find('i');
+        
+        // Validasi form HTML5
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        
+        // Tampilkan spinner
+        btn.addClass('loading');
+        spinner.removeClass('d-none');
+        icon.addClass('d-none');
+        btn.prop('disabled', true);
+        
+        // Submit form
+        form.submit();
+    });
+});
+</script>
+@endpush

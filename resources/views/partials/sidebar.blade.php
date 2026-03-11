@@ -40,10 +40,37 @@
         </li>
 
         {{-- Menu Barang --}}
-        <li class="nav-item {{ Request::is('barang*') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::is('barang*') && !Request::is('barang-js*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('barang.index') }}">
                 <span class="menu-title">Barang</span>
                 <i class="mdi mdi-package-variant menu-icon"></i>
+            </a>
+        </li>
+
+        {{-- Menu Barang JavaScript --}}
+        <li class="nav-item {{ Request::is('barang-js*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#barang-js-menu" aria-expanded="false" aria-controls="barang-js-menu">
+                <span class="menu-title">Barang JavaScript</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-code-braces menu-icon"></i>
+            </a>
+            <div class="collapse" id="barang-js-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('barang-js/form-validasi') ? 'active' : '' }}" href="{{ route('barang-js.form-validasi') }}">Form Validasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('barang-js/datatables') ? 'active' : '' }}" href="{{ route('barang-js.datatables') }}">DataTables Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        {{-- Menu Select Kota --}}
+        <li class="nav-item {{ Request::is('select-kota*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('select-kota.index') }}">
+                <span class="menu-title">Select Kota</span>
+                <i class="mdi mdi-map-marker menu-icon"></i>
             </a>
         </li>
 

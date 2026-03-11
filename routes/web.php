@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangJsController;
+use App\Http\Controllers\SelectKotaController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\PdfController;
@@ -59,6 +61,13 @@ Route::middleware(['auth'])->group(function () {
     // Barang Print Label Routes
     Route::get('/barang/print/form', [BarangController::class, 'printForm'])->name('barang.print-form');
     Route::post('/barang/print/label', [BarangController::class, 'printLabel'])->name('barang.print-label');
+
+    // Barang JavaScript Routes (tidak tersimpan ke database)
+    Route::get('/barang-js/form-validasi', [BarangJsController::class, 'formValidasi'])->name('barang-js.form-validasi');
+    Route::get('/barang-js/datatables', [BarangJsController::class, 'datatables'])->name('barang-js.datatables');
+
+    // Select Kota Route (Study Case 4)
+    Route::get('/select-kota', [SelectKotaController::class, 'index'])->name('select-kota.index');
 
     // PDF Routes
     Route::get('/pdf/sertifikat', [PdfController::class, 'sertifikat'])->name('pdf.sertifikat');

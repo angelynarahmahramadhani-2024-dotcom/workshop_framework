@@ -18,7 +18,7 @@
                 <h4 class="card-title">Edit Barang</h4>
                 <p class="card-description">Ubah data barang</p>
                 
-                <form action="{{ route('barang.update', $barang->id_barang) }}" method="POST">
+                <form id="formEditBarang" action="{{ route('barang.update', $barang->id_barang) }}" method="POST">
                     @csrf
                     @method('PUT')
                     
@@ -49,18 +49,49 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary me-2">
-                            <i class="mdi mdi-content-save"></i> Update
-                        </button>
-                        <a href="{{ route('barang.index') }}" class="btn btn-light">
-                            <i class="mdi mdi-cancel"></i> Batal
-                        </a>
-                    </div>
                 </form>
+                
+                <div class="mt-4">
+                    <button type="button" id="btnUpdateBarang" class="btn btn-primary me-2 btn-spinner">
+                        <span class="spinner-border d-none" role="status" aria-hidden="true"></span>
+                        <i class="mdi mdi-content-save"></i> Update
+                    </button>
+                    <a href="{{ route('barang.index') }}" class="btn btn-light">
+                        <i class="mdi mdi-cancel"></i> Batal
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $('#btnUpdateBarang').on('click', function(e) {
+        e.preventDefault();
+        
+        const form = $('#formEditBarang')[0];
+        const btn = $(this);
+        const spinner = btn.find('.spinner-border');
+        const icon = btn.find('i');
+        
+        // Validasi form HTML5
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        
+        // Tampilkan spinner
+        btn.addClass('loading');
+        spinner.removeClass('d-none');
+        icon.addClass('d-none');
+        btn.prop('disabled', true);
+        
+        // Submit form
+        form.submit();
+    });
+});
+</script>
+@endpush
