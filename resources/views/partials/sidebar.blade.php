@@ -39,12 +39,26 @@
             </a>
         </li>
 
-        {{-- Menu Barang --}}
-        <li class="nav-item {{ Request::is('barang*') && !Request::is('barang-js*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('barang.index') }}">
+        {{-- Menu Barang & POS --}}
+        <li class="nav-item {{ (Request::is('barang*') && !Request::is('barang-js*')) || Request::is('pos*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#barang-menu" aria-expanded="{{ ((Request::is('barang*') && !Request::is('barang-js*')) || Request::is('pos*')) ? 'true' : 'false' }}" aria-controls="barang-menu">
                 <span class="menu-title">Barang</span>
+                <i class="menu-arrow"></i>
                 <i class="mdi mdi-package-variant menu-icon"></i>
             </a>
+            <div class="collapse {{ ((Request::is('barang*') && !Request::is('barang-js*')) || Request::is('pos*')) ? 'show' : '' }}" id="barang-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('barang*') && !Request::is('barang-js*') ? 'active' : '' }}" href="{{ route('barang.index') }}">Data Barang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('pos') ? 'active' : '' }}" href="{{ route('pos.index') }}">POS jQuery AJAX</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('pos-axios') ? 'active' : '' }}" href="{{ route('pos.axios') }}">POS Axios</a>
+                    </li>
+                </ul>
+            </div>
         </li>
 
         {{-- Menu Barang JavaScript --}}
@@ -72,6 +86,22 @@
                 <span class="menu-title">Select Kota</span>
                 <i class="mdi mdi-map-marker menu-icon"></i>
             </a>
+        </li>
+
+        {{-- Menu Wilayah (AJAX) --}}
+        <li class="nav-item {{ Request::is('wilayah*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#wilayah-menu" aria-expanded="{{ Request::is('wilayah*') ? 'true' : 'false' }}" aria-controls="wilayah-menu">
+                <span class="menu-title">Wilayah</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-map-search menu-icon"></i>
+            </a>
+            <div class="collapse {{ Request::is('wilayah*') ? 'show' : '' }}" id="wilayah-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('wilayah') || Request::is('wilayah-axios') ? 'active' : '' }}" href="{{ route('wilayah.index') }}">Wilayah</a>
+                    </li>
+                </ul>
+            </div>
         </li>
 
         {{-- Menu Generate PDF --}}

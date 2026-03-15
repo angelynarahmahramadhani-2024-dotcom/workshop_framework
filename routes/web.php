@@ -6,6 +6,7 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangJsController;
 use App\Http\Controllers\SelectKotaController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\PdfController;
@@ -69,7 +70,20 @@ Route::middleware(['auth'])->group(function () {
     // Select Kota Route (Study Case 4)
     Route::get('/select-kota', [SelectKotaController::class, 'index'])->name('select-kota.index');
 
+    // Wilayah Cascading Select Routes
+    Route::get('/wilayah', [SelectKotaController::class, 'wilayah'])->name('wilayah.index');
+    Route::get('/wilayah-axios', [SelectKotaController::class, 'wilayahAxios'])->name('wilayah.axios');
+    Route::get('/wilayah/get-kota', [SelectKotaController::class, 'getKota'])->name('wilayah.get-kota');
+    Route::get('/wilayah/get-kecamatan', [SelectKotaController::class, 'getKecamatan'])->name('wilayah.get-kecamatan');
+    Route::get('/wilayah/get-kelurahan', [SelectKotaController::class, 'getKelurahan'])->name('wilayah.get-kelurahan');
+
     // PDF Routes
     Route::get('/pdf/sertifikat', [PdfController::class, 'sertifikat'])->name('pdf.sertifikat');
     Route::get('/pdf/undangan', [PdfController::class, 'undangan'])->name('pdf.undangan');
+
+    // POS (Point of Sales) Routes
+    Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+    Route::get('/pos-axios', [PosController::class, 'indexAxios'])->name('pos.axios');
+    Route::get('/pos/cari-barang', [PosController::class, 'cariBarang'])->name('pos.cari-barang');
+    Route::post('/pos/bayar', [PosController::class, 'bayar'])->name('pos.bayar');
 });
