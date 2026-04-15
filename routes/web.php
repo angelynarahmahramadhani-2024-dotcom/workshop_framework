@@ -36,14 +36,14 @@ Route::post('/payment/midtrans/callback', [OrderController::class, 'midtransCall
     ->withoutMiddleware([ValidateCsrfToken::class])
     ->name('payment.midtrans.callback');
 
+// Order / Payment Gateway Routes (tanpa login, customer = guest)
+Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/menu', [OrderController::class, 'menuByVendor'])->name('order.menu');
+Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::get('/order/qrcode/{idpesanan}', [OrderController::class, 'showQrCode'])->name('order.qrcode');
+
 // Semua route di bawah ini butuh login
 Route::middleware(['auth'])->group(function () {
-    // Order / Payment Gateway Routes
-    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
-    Route::get('/order/menu', [OrderController::class, 'menuByVendor'])->name('order.menu');
-    Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
-    Route::get('/order/qrcode/{idpesanan}', [OrderController::class, 'showQrCode'])->name('order.qrcode');
-
     // Dashboard
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', function () {
