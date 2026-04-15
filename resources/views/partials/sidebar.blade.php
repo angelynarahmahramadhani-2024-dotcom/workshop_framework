@@ -61,6 +61,36 @@
             </div>
         </li>
 
+        {{-- Menu Customer --}}
+        <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#customer-menu" aria-expanded="{{ Request::is('customer*') ? 'true' : 'false' }}" aria-controls="customer-menu">
+                <span class="menu-title">Customer</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+            <div class="collapse {{ Request::is('customer*') ? 'show' : '' }}" id="customer-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('customer') ? 'active' : '' }}" href="{{ route('customer.index') }}">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('customer/create1') ? 'active' : '' }}" href="{{ route('customer.create1') }}">Tambah Customer 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('customer/create2') ? 'active' : '' }}" href="{{ route('customer.create2') }}">Tambah Customer 2</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        {{-- Menu Order Kantin --}}
+        <li class="nav-item {{ Request::is('order*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('order.index') }}">
+                <span class="menu-title">Order Kantin</span>
+                <i class="mdi mdi-food menu-icon"></i>
+            </a>
+        </li>
+
         {{-- Menu Barang JavaScript --}}
         <li class="nav-item {{ Request::is('barang-js*') ? 'active' : '' }}">
             <a class="nav-link" data-bs-toggle="collapse" href="#barang-js-menu" aria-expanded="false" aria-controls="barang-js-menu">
@@ -122,5 +152,55 @@
                 </ul>
             </div>
         </li>
+
+        {{-- Menu Customer --}}
+        <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#customer-menu" aria-expanded="{{ Request::is('customer*') ? 'true' : 'false' }}" aria-controls="customer-menu">
+                <span class="menu-title">Customer</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+            <div class="collapse {{ Request::is('customer*') ? 'show' : '' }}" id="customer-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('customer') ? 'active' : '' }}" href="{{ route('customer.index') }}">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('customer/create1') ? 'active' : '' }}" href="{{ route('customer.create1') }}">Tambah Customer 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('customer/create2') ? 'active' : '' }}" href="{{ route('customer.create2') }}">Tambah Customer 2</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        {{-- Menu Payment Gateway --}}
+        <li class="nav-item {{ Request::is('order*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('order.index') }}">
+                <span class="menu-title">Payment Gateway</span>
+                <i class="mdi mdi-credit-card menu-icon"></i>
+            </a>
+        </li>
+
+        @if((Auth::user()->role ?? null) === 'vendor')
+        <li class="nav-item {{ Request::is('vendor/menu*') || Request::is('vendor/pesanan/lunas*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#vendor-menu" aria-expanded="{{ Request::is('vendor/menu*') || Request::is('vendor/pesanan/lunas*') ? 'true' : 'false' }}" aria-controls="vendor-menu">
+                <span class="menu-title">Vendor Area</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-store menu-icon"></i>
+            </a>
+            <div class="collapse {{ Request::is('vendor/menu*') || Request::is('vendor/pesanan/lunas*') ? 'show' : '' }}" id="vendor-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('vendor/menu*') ? 'active' : '' }}" href="{{ route('vendor.menu.index') }}">Master Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('vendor/pesanan/lunas*') ? 'active' : '' }}" href="{{ route('vendor.orders.paid') }}">Pesanan Lunas</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        @endif
     </ul>
 </nav>

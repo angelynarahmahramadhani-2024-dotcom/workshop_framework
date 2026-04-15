@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Barang;
-use Illuminate\Support\Facades\DB;
+use App\Models\Vendor;
 
 class BarangSeeder extends Seeder
 {
@@ -13,23 +13,24 @@ class BarangSeeder extends Seeder
      */
     public function run(): void
     {
+        $warungBuSari = Vendor::where('nama_vendor', 'Warung Bu Sari')->first();
+        $kantinPakBudi = Vendor::where('nama_vendor', 'Kantin Pak Budi')->first();
+        $minumanSegarJaya = Vendor::where('nama_vendor', 'Minuman Segar Jaya')->first();
+
         $barangs = [
-            ['nama' => 'Pensil 2B', 'harga' => 2500],
-            ['nama' => 'Penghapus', 'harga' => 1500],
-            ['nama' => 'Penggaris 30cm', 'harga' => 3000],
-            ['nama' => 'Buku Tulis 38 Lembar', 'harga' => 5000],
-            ['nama' => 'Spidol Whiteboard', 'harga' => 8000],
-            ['nama' => 'Ballpoint Biru', 'harga' => 2000],
-            ['nama' => 'Kertas HVS A4 1 Rim', 'harga' => 45000],
-            ['nama' => 'Gunting Kecil', 'harga' => 7500],
-            ['nama' => 'Lem Kertas', 'harga' => 4000],
-            ['nama' => 'Stapler + Isi', 'harga' => 12000],
-            ['nama' => 'Correction Tape', 'harga' => 6500],
-            ['nama' => 'Amplop Coklat', 'harga' => 1000],
+            ['nama' => 'Nasi Goreng Spesial', 'harga' => 18000, 'id_vendor' => $warungBuSari?->id_vendor],
+            ['nama' => 'Mie Ayam', 'harga' => 15000, 'id_vendor' => $warungBuSari?->id_vendor],
+            ['nama' => 'Es Teh Manis', 'harga' => 5000, 'id_vendor' => $minumanSegarJaya?->id_vendor],
+            ['nama' => 'Jus Alpukat', 'harga' => 12000, 'id_vendor' => $minumanSegarJaya?->id_vendor],
+            ['nama' => 'Ayam Geprek', 'harga' => 20000, 'id_vendor' => $kantinPakBudi?->id_vendor],
+            ['nama' => 'Pisang Goreng', 'harga' => 8000, 'id_vendor' => $kantinPakBudi?->id_vendor],
         ];
 
         foreach ($barangs as $barang) {
-            Barang::create($barang);
+            Barang::firstOrCreate(
+                ['nama' => $barang['nama'], 'id_vendor' => $barang['id_vendor'] ?? null],
+                ['harga' => $barang['harga']]
+            );
         }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class BarangController extends Controller
 {
@@ -114,6 +115,18 @@ class BarangController extends Controller
         $barangs = Barang::whereIn('id_barang', $request->barang_ids)->get();
         $x = $request->x;
         $y = $request->y;
+
+        // Generate barcode untuk setiap barang
+        $generator = new BarcodeGeneratorPNG();
+        foreach ($barangs as $barang) {
+            $barcodeData = $generator->getBarcode(
+                (string) $barang->id_barang,
+                $generator::TYPE_CODE_128,
+                2,  // width factor
+                40  // height in pixels
+            );
+            $barang->barcode_base64 = base64_encode($barcodeData);
+        }
 
         $pdf = Pdf::loadView('barang.label-108', compact('barangs', 'x', 'y'))
                   ->setPaper('a4', 'portrait');

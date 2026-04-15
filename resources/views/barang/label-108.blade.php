@@ -33,7 +33,7 @@ body {
 .label {
     display: table-cell;
     width: 38mm;
-    height: 18mm;
+    height: 22mm;
     border: none;
     text-align: center;
     vertical-align: middle;
@@ -45,6 +45,21 @@ body {
 .label-content {
     font-size: 7pt;
     line-height: 1.1;
+}
+
+.barcode-img {
+    display: block;
+    margin: 0 auto 1mm auto;
+    max-width: 34mm;
+    height: 10mm;
+}
+
+.id-barang {
+    display: block;
+    font-size: 7pt;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5mm;
 }
 
 .item-name {
@@ -92,7 +107,14 @@ $startNumber = ($startRow - 1) * $cols + $startCol;
             <div class="label marked"></div>
         @elseif(isset($barangs[$dataIndex]))
             <div class="label">
-                <div class="label-content">                    <span class="item-name">{{ $barangs[$dataIndex]->nama }}</span>                    <span class="price-line">
+                <div class="label-content">
+                    {{-- Barcode di atas id_barang --}}
+                    @if(!empty($barangs[$dataIndex]->barcode_base64))
+                        <img class="barcode-img" src="data:image/png;base64,{{ $barangs[$dataIndex]->barcode_base64 }}" alt="barcode">
+                    @endif
+                    <span class="id-barang">{{ $barangs[$dataIndex]->id_barang }}</span>
+                    <span class="item-name">{{ $barangs[$dataIndex]->nama }}</span>
+                    <span class="price-line">
                         <span class="currency">Rp</span><span class="price">{{ number_format($barangs[$dataIndex]->harga, 0, ',', '.') }}</span>
                     </span>
                 </div>

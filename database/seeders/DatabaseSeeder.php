@@ -18,16 +18,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Angel',
-            'email' => 'angelynarahmah@mail.com',
-            'password' => Hash::make('123456'),
-        ]);
+        User::firstOrCreate(
+            ['email' => 'angelynarahmah@mail.com'],
+            [
+                'name' => 'Angel',
+                'password' => Hash::make('123456'),
+                'role' => 'vendor',
+            ]
+        );
 
-        // Seed Kategori dan Buku
+        // Seed Kategori, Buku, dan data vendor/menu
         $this->call([
             KategoriSeeder::class,
+            VendorSeeder::class,
+            BarangSeeder::class,
             BukuSeeder::class,
+            MenuSeeder::class,
         ]);
     }
 }

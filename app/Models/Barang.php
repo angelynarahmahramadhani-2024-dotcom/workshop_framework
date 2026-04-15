@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Barang extends Model
 {
@@ -14,10 +15,17 @@ class Barang extends Model
 
     protected $fillable = [
         'nama',
-        'harga'
+        'harga',
+        'id_vendor',
+        'path_gambar',
     ];
 
     protected $casts = [
         'harga' => 'integer',
     ];
+
+    public function vendor(): BelongsTo
+    {
+        return $this->belongsTo(Vendor::class, 'id_vendor', 'id_vendor');
+    }
 }
