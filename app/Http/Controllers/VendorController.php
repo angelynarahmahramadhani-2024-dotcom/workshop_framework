@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailPesanan;
 use App\Models\Menu;
 use App\Models\Pesanan;
 use App\Models\Vendor;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
@@ -114,6 +116,60 @@ class VendorController extends Controller
             'vendors' => $vendors,
             'orders' => $orders,
             'vendorFilter' => $vendorFilter,
+        ]);
+    }
+
+    /**
+     * Halaman scan QR Code pesanan (untuk vendor)
+     */
+    public function scanQrCode()
+    {
+        return view('vendor.orders.scan-qr');
+    }
+
+    /**
+     * AJAX: Ambil detail pesanan berdasarkan idpesanan (hasil scan QR)
+     */
+    public function getOrderByQr(Request $request): JsonResponse
+    {
+        $request->validate([
+            'idpesanan' => ['required', 'integer'],
+        ]);
+
+        $pesanan = Pesanan::with(['detail.menu.vendor'])
+            ->find($request->integer('idpesanan'));
+
+        if (!$pesanan) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Pesanan tidak ditemukan.',
+            ], 404);
+        }
+
+        // Susun data detail pesanan
+        $items = $pesanan->detail->map(function ($detail) {
+            return [
+                'nama_menu' => $detail->menu->nama_menu ?? '-',
+                'vendor' => $detail->menu->vendor->nama_vendor ?? '-',
+                'jumlah' => $detail->jumlah,
+                'harga' => $detail->harga,
+                'subtotal' => $detail->subtotal,
+                'catatan' => $detail->catatan,
+            ];
+        });
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'idpesanan' => $pesanan->idpesanan,
+                'nama' => $pesanan->nama,
+                'total' => $pesanan->total,
+                'status_bayar' => $pesanan->status_bayar,
+                'status_bayar_label' => $pesanan->status_bayar_label,
+                'metode_bayar_label' => $pesanan->metode_bayar_label,
+                'paid_at' => $pesanan->paid_at,
+                'items' => $items,
+            ],
         ]);
     }
 }

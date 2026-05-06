@@ -134,4 +134,40 @@ class BarangController extends Controller
         // Stream PDF ke browser (form menggunakan target="_blank")
         return $pdf->stream('label-harga-' . date('YmdHis') . '.pdf');
     }
+
+    /**
+     * Halaman barcode scanner (kamera)
+     */
+    public function barcodeScanner()
+    {
+        return view('barang.barcode-scanner');
+    }
+
+    /**
+     * AJAX: Cari barang berdasarkan barcode (id_barang)
+     */
+    public function findByBarcode(Request $request)
+    {
+        $request->validate([
+            'barcode' => ['required', 'string'],
+        ]);
+
+        $barang = Barang::find($request->input('barcode'));
+
+        if (!$barang) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Barang dengan barcode tersebut tidak ditemukan.',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'id_barang' => $barang->id_barang,
+                'nama' => $barang->nama,
+                'harga' => $barang->harga,
+            ],
+        ]);
+    }
 }

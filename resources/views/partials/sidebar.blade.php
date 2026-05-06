@@ -66,6 +66,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('pos-axios') ? 'active' : '' }}" href="{{ route('pos.axios') }}">POS Axios</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('barang/barcode-scanner') ? 'active' : '' }}" href="{{ route('barang.barcode-scanner') }}">Barcode Scanner</a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -170,10 +173,21 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('vendor/pesanan/lunas*') ? 'active' : '' }}" href="{{ route('vendor.orders.paid') }}">Pesanan Lunas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('vendor/scan-qr*') ? 'active' : '' }}" href="{{ route('vendor.scan-qr') }}">Scan QR Code</a>
+                    </li>
                 </ul>
             </div>
         </li>
         @endif
+
+        {{-- Menu Kunjungan Toko (Geolocation) --}}
+        <li class="nav-item {{ Request::is('kunjungan-toko*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('kunjungan-toko.index') }}">
+                <span class="menu-title">Kunjungan Toko</span>
+                <i class="mdi mdi-map-marker-radius menu-icon"></i>
+            </a>
+        </li>
         @endauth
     </ul>
 </nav>

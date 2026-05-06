@@ -13,6 +13,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\KunjunganTokoController;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 
 // Redirect ke login jika belum login
@@ -78,6 +79,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/barang/print/form', [BarangController::class, 'printForm'])->name('barang.print-form');
     Route::post('/barang/print/label', [BarangController::class, 'printLabel'])->name('barang.print-label');
 
+    // Barang Barcode Scanner (Praktikum 1)
+    Route::get('/barang/barcode-scanner', [BarangController::class, 'barcodeScanner'])->name('barang.barcode-scanner');
+    Route::get('/barang/find-by-barcode', [BarangController::class, 'findByBarcode'])->name('barang.find-by-barcode');
+
     // Barang JavaScript Routes (tidak tersimpan ke database)
     Route::get('/barang-js/form-validasi', [BarangJsController::class, 'formValidasi'])->name('barang-js.form-validasi');
     Route::get('/barang-js/datatables', [BarangJsController::class, 'datatables'])->name('barang-js.datatables');
@@ -119,5 +124,16 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/vendor/menu/{id}', [VendorController::class, 'menuDestroy'])->name('vendor.menu.destroy');
 
         Route::get('/vendor/pesanan/lunas', [VendorController::class, 'paidOrders'])->name('vendor.orders.paid');
+
+        // Vendor QR Scanner (Praktikum 2)
+        Route::get('/vendor/scan-qr', [VendorController::class, 'scanQrCode'])->name('vendor.scan-qr');
+        Route::get('/vendor/order-by-qr', [VendorController::class, 'getOrderByQr'])->name('vendor.order-by-qr');
     });
+
+    // Kunjungan Toko Routes (Praktikum 3 — Geolocation)
+    Route::get('/kunjungan-toko', [KunjunganTokoController::class, 'index'])->name('kunjungan-toko.index');
+    Route::post('/kunjungan-toko', [KunjunganTokoController::class, 'store'])->name('kunjungan-toko.store');
+    Route::get('/kunjungan-toko/cetak-barcode/{barcode}', [KunjunganTokoController::class, 'cetakBarcode'])->name('kunjungan-toko.cetak-barcode');
+    Route::get('/kunjungan-toko/find-by-barcode', [KunjunganTokoController::class, 'findByBarcode'])->name('kunjungan-toko.find-by-barcode');
+    Route::get('/kunjungan-toko/verify-visit', [KunjunganTokoController::class, 'verifyVisit'])->name('kunjungan-toko.verify-visit');
 });
